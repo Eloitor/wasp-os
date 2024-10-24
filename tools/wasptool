@@ -368,15 +368,24 @@ def handle_upload(c, fname, tname):
 
         c.expect('>>> ')
 
+def send_notification(c, title, body, id):
+    msg= {'title': title, 'body': body}
+    c.sendline(f'wasp.system.notify(id,  {msg})')
+    c.sendline(f'watch.vibrator.pulse(ms=wasp.system.notify_duration)')
+    c.expect('>>> ')
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
             description='Wasp-os command and control client')
-    parser.add_argument('--as', dest='upload_as', default=None,
-            help="Filename to use on the target (e.g. wasptool --upload docs/main/chrono.py --as main.py")
+    parser.add_argument('--as', dest='file_as', default=None,
+            help="Filename to use on the target (e.g. wasptool --upload docs/main/chrono.py --as main.py. Also works with --pull")
     parser.add_argument('--battery', action='store_true',
             help="Report remaining battery charge")
     parser.add_argument('--bootloader', action='store_true',
             help="Reboot into the bootloader mode for OTA update")
+    parser.add_argument('--body', default='Body',
+            help='Body of the notification')
     parser.add_argument('--binary', action='store_true',
             help="Enable non-ASCII mode for upload command")
     parser.add_argument('--console', action='store_true',
@@ -389,6 +398,8 @@ if __name__ == '__main__':
             help='Execute the contents of a file')
     parser.add_argument('--eval',
             help='Execute the provided python string')
+    parser.add_argument('--id', default=1,
+            help='ID of the notification')
     parser.add_argument('--memfree', action='store_true',
             help='Report on the current memory usage.')
     parser.add_argument('--pull',
@@ -403,6 +414,10 @@ if __name__ == '__main__':
             help="Deliver an OTA update to the device")
     parser.add_argument('--rtc', action='store_true',
             help='Set the time on the wasp-os device')
+    parser.add_argument('--send-notification', action='store_true',
+            help='Send a notification to the wasp-os device (e.g. wasptool --send-notification --title hello --body world --id 1')
+    parser.add_argument('--title', default='Title',
+            help='Title of the notification')
     parser.add_argument('--upload',
             help='Copy the specified file to the wasp-os device')
     parser.add_argument('--verbose', action='store_true',
@@ -450,6 +465,9 @@ if __name__ == '__main__':
     if args.check_rtc:
         check_rtc(console)
 
+    if args.send_notification:
+        send_notification(console, args.title, args.body, args.id)
+
     if args.exec:
         handle_exec(console, args.exec)
 
@@ -457,16 +475,16 @@ if __name__ == '__main__':
         handle_eval(console, args.eval)
 
     if args.pull:
-        handle_binary_download(console, args.pull, args.pull)
+        handle_binary_download(console, args.pull, args.file_as or args.pull)
 
     if args.push:
         handle_binary_upload(console, args.push, args.push)
 
     if args.upload:
         if args.binary:
-            handle_binary_upload(console, args.upload, args.upload_as)
+            handle_binary_upload(console, args.upload, args.file_as)
         else:
-            handle_upload(console, args.upload, args.upload_as)
+            handle_upload(console, args.upload, args.file_as)
 
     if args.memfree:
         handle_memory_free(console)

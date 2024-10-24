@@ -150,9 +150,11 @@ class Draw565(object):
         if h is None:
             h = display.height - y
 
-        display.set_window(x, y, w, h)
-
         remaining = w * h
+        if remaining == 0:
+          return
+
+        display.set_window(x, y, w, h)
 
         # Populate the line buffer
         buf = display.linebuffer
@@ -459,11 +461,11 @@ class Draw565(object):
             draw = wasp.watch.drawable
             draw.line(360 / 12, 16, 64)
 
+        :param x: X coordinate of the origin
+        :param y: Y coordinate of the origin
         :param theta: Angle, in degrees
         :param r0: Radius of the start of the line
         :param y0: Radius of the end of the line
-        :param x: X coordinate of the origin
-        :param y: Y coordinate of the origin
         :param width: Width of the line in pixels
         :param color: Colour to draw line in, defaults to the foreground colour
         """

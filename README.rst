@@ -72,15 +72,17 @@ Community
 
 The wasp-os community is centred around the
 `github project <https://github.com/wasp-os/wasp-os>`_ and is
-supplemented with instant messaging via the #wasp-os IRC channel at
-libera.chat .
+supplemented with instant messaging in the
+`#wasp-os:matrix.org <https://matrix.to/#/#wasp-os:matrix.org>`_
+channel. If you do not have a preferred Matrix chat client then we recommend
+trying out the
+`Element web client <https://app.element.io/#/room/#wasp-os:matrix.org>`_
+Follow the element link and, if you do not already have a matrix account,
+register yourself. That should be enough to get you chatting!
 
-If you are unfamiliar with IRC and don't have a preferred client then
-we recommend connecting to libera.chat using the
-`matrix/IRC bridge <https://app.element.io/#/room/#wasp-os:libera.chat>`_.
-The matrix bridge will allow us to receive messages whilst offline. Follow
-the link above and, if you do not already have a matrix account, register
-yourself. That should be enough to get you chatting!
+Alternatively, if you prefer to use IRC then, for all
+`the usual reasons <https://xkcd.com/1782/>`_ the Matrix channel is also
+bridged to the #wasp-os IRC channel at libera.chat.
 
 Videos
 ------
@@ -173,6 +175,10 @@ Watch faces:
    :alt: Shows a time as words in the wasp-os simulator
    :width: 179
 
+.. image:: res/screenshots/ResistorClockApp.png
+   :alt: Resistor colour code clock application running in the wasp-os simulator
+   :width: 179
+
 Games:
 
 .. image:: res/screenshots/Play2048App.png
@@ -185,6 +191,14 @@ Games:
 
 .. image:: res/screenshots/SnakeApp.png
    :alt: Snake Game running in the wasp-os simulator
+   :width: 179
+
+.. image:: res/screenshots/Puzzle15App.png
+   :alt: 15 Puzzle running in the wasp-os simulator
+   :width: 179
+
+.. image:: res/screenshots/FourInARowApp.png
+   :alt: Four In A Row running in the wasp-os simulator
    :width: 179
 
 Time management apps:
